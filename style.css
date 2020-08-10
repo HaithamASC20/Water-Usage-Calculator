@@ -1,3 +1,26 @@
 body{
     background-color: aqua;
 }
+/* font-family: 'Source Sans Pro',"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 100%;
+    font-weight: 300;
+    text-align: center;
+    color: #0e4873;
+    background-color: #bae1ec;
+    overflow-x: hidden;
+    overflow-y: auto;
+} */
+
+.question{
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    color: gold;
+}
+
+#startButton{
+    display: block;
+    margin: auto;
+    text-align: center;
+    
+}
