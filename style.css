@@ -15,6 +15,7 @@ body{
     display: flex;
     justify-content: center;
     padding-top: 20px;
+    padding-bottom: 10px;
     color: blue;
 }
 
@@ -44,9 +45,44 @@ body{
     display: flex;
     justify-content: center;
     padding-bottom: 20px;
+    margin-bottom: -18px;
+    margin-top: -18px;
 }
 
 #side{
     display: flex;
     justify-content: end;
+}
+
+#bathDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#oldSchoolDiv,#newSchoolDiv, #handDiv, #eatOutDiv, #oldSchoolLaundryDiv, #newSchoolLaundryDiv, #handLaundryDiv, #outsideLaundryDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.center{
+    text-align: center;
+}
+
+#tips{
+color: blue;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+padding: 20px;
+}
+
+.results{
+    display: flex;
+    justify-content: center;
+    color: blue;
 }

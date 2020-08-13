@@ -8,9 +8,13 @@
 <body>
   <div class ="Start">
     <h1 class  = "question">Does your kitchen sink have a low-flow faucet?</h1>
+    <div class="image"><img src = "kitchen2.jpg" width="200px"></div>
     <div id="buttons"> 
-      <a href = "kitchenSink2.html"><button>Back</button></a>
-      <a href = "dishes.html"><button>Next</button></a>
+      <a href = "kitchenSink.html"><button>Back</button></a>
+      <a href = "dishes.html"><button id = "kitchenSinkYES" value = "yes" onclick="kitchenSink2Function(this)">YES</button>
+      <a href = "dishes.html"><button id = "kitchenSinkNO" value = "no" onclick="kitchenSink2Function(this)">NO</button>
+      <a href = "dishes.html"><button id = "kitchenSinkSOME" value = "some" onclick="kitchenSink2Function(this)">SOME</button>
+        <a href = "dishes.html"><button>Next</button></a>
     </div>
   </div>
 
