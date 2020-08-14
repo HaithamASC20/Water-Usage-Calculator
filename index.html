@@ -1,21 +1,333 @@
 <!DOCTYPE html>
 <html>
- <head>
+
+<head>
   <title>Water Usage Calculator</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
-  <link rel="stylesheet" href="style.css">  
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <div class ="Start">
-  
-  <h1 class  = "question">Click to Start the Water Calculator</h1>
-  <div class="image">
-    <img src = "TeamDripLogoInner.jpg" width="200px">
+  <div id="start">
+
+    <h1 class="question">Click to Start the Water Calculator</h1>
+    <div class="image">
+      <img src="TeamDripLogoInner.jpg" width="200px">
+    </div>
+    <button id="startButton" onclick="nextFunction()">Start</button>
   </div>
-  <a href = "household.html"><button  id = "startButton">Start</button></a>
-</div>
 
 
-  <script src = "main.js" defer></script>
+
+  <div id="question1">
+
+
+    <h1 class="question">How many people are in your household?</h1>
+    <div id="buttons">
+
+      <div id="image"><img src="household.jpg" width="200px"></div>
+      <h1 id="residents">0</h1>
+      <button value="-1" onclick="backFunction(this)">Back</button>
+      <button id="minusBtn" value="-1" onclick="residentFunction(this)">-</button>
+      <button id="PlusBtn" value="1" onclick="residentFunction(this)">+</button>
+      <button value="1" onclick="nextFunction(this)">Next</button>
+    </div>
+  </div>
+  <div id="question2">
+    <h1 class="question">How Long is the Average Shower in Your Household?</h1>
+    <div class="image"><img src="shower.jpg" width="200px"></div>
+    <div id="buttons">
+      <button value="-1" onclick="backFunction(this)">Back</button>
+      <button  id="under5" value="5" onclick="showerFunction(this)">UNDER 5 MIN</button>
+      <button  id="under10" value="10" onclick="showerFunction(this)">5-10 MIN</button>
+      <button  id="under15" value="15" onclick="showerFunction(this)">11-15 MIN</button>
+      <button  id="under20" value="20" onclick="showerFunction(this)">OVER 15 MIN</button>
+      <button onclick="nextFunction()">Next</button>
+    </div>
+  </div>
+
+  <div id="question3">
+    <h1 class="question">Do you have low flow shower heads?</h1>
+    <div class="image"><img src="shower2.jpg" width="200px"></div>
+    <div id="buttons">
+      <button value="-1" onclick="backFunction(this)">Back</button>
+      <button  id="shower2YES" value="yes" onclick="showerFunction2(this)">YES</button>
+      <button  id="shower2NO" value="no" onclick="showerFunction2(this)">NO</button>
+      <button  id="shower2SOME" value="some" onclick="showerFunction2(this)">SOME</button>
+      <button onclick="nextFunction()">Next</button>
+    </div>
+  </div>
+
+  <div id="question4">
+    <h1 class="question">Do you take baths? if so, how often?</h1>
+    <div class="image"><img src="bath.jpg" width="200px"></div>
+    <div id="buttons">
+      <button value="-1" onclick="backFunction(this)">Back</button>
+      <button onclick="nextFunction()">Next</button>
+      <div id="bathDiv">
+        <button id="bathMinus" value="-1" onclick="bathtubFunction(this)">-</button>
+        <h1 id="bathNumber">0</h1>
+        <button id="bathPlus" value="1" onclick="bathtubFunction(this)">+</button>
+        <h1>Bath(s) Per</h1>
+        <button id="bathDaysMinus" value="-1" onclick="bathtub2Function(this)">-</button>
+        <h1 id="bathNumber2">0</h1>
+        <button id="bathDaysPlus" value="1" onclick="bathtub2Function(this)">+</button>
+        <h1>Day(s)</h1>
+      </div>
+    </div>
+  </div>
+    <div id="question5">
+      <h1 class="question">How long do you leave your bathroom faucets running each day?</h1>
+      <div class="image"><img src="Bathroomsink.jpg" width="200px"></div>
+      <div id="buttons">
+        <button value="-1" onclick="backFunction(this)">Back</button>
+        <button  id="under5Min" value="5" onclick="bathroomSinkFunction(this)">UNDER 5
+          MIN</button>
+        <button  id="under10Min" value="10" onclick="bathroomSinkFunction(this)">5-10
+          MIN</button>
+        <button  id="under30Min" value="20" onclick="bathroomSinkFunction(this)">11-30
+          MIN</button>
+        <button  id="under40Min" value="40" onclick="bathroomSinkFunction(this)">OVER 30
+          MIN</button>
+        <button onclick="nextFunction()">Next</button>
+      </div>
+    </div>
+
+    <div id="question6">
+      <h1 class="question">Do your bathroom sinks have low-flow faucets?</h1>
+      <div class="image"><img src="Bathroomsink2.jpg" width="200px"></div>
+      <div id="buttons">
+        <button value="-1" onclick="backFunction(this)">Back</button>
+        <button  id="bathroomSinkYES" value="yes" onclick="bathroomSinkFunction2(this)">YES</button>
+        <button  id="bathroomSinkNO" value="no" onclick="bathroomSinkFunction2(this)">NO</button>
+        <button  id="bathroomSinkSOME" value="some" onclick="bathroomSinkFunction2(this)">SOME</button>
+        <button onclick="nextFunction()">Next</button>
+      </div>
+    </div>
+
+    <div id="question7">
+      <h1 class="question">Do you "let it mellow?" (Use the toilet and not flush)</h1>
+      <div class="image"><img src="toilet.jpg" width="200px"></div>
+      <div id="buttons">
+        <button value="-1" onclick="backFunction(this)">Back</button>
+        <button  id="toiletYES" value="yes" onclick="toiletFunction(this)">OF COURSE!</button>
+        <button  id="toiletNO" value="no" onclick="toiletFunction(this)">GROSS NO!</button>
+        <button  id="toiletSOME" value="some" onclick="toiletFunction(this)">SOMETIMES</button>
+        <button onclick="nextFunction()">Next</button>
+      </div>
+    </div>
+
+    <div id="question8">
+      <h1 class="question">Do you have low-flow toilets?</h1>
+      <div class="image"><img src="toilet2.jpg" width="200px"></div>
+      <div id="buttons">
+        <button value="-1" onclick="backFunction(this)">Back</button>
+        <button  id="toilet2YES" value="yes" onclick="toilet2Function(this)">YES</button>
+        <button  id="toilet2NO" value="no" onclick="toilet2Function(this)">NO</button>
+        <button  id="toiletSOME" value="some" onclick="toilet2Function(this)">SOME</button>
+        <button onclick="nextFunction()">Next</button>
+      </div>
+    </div>
+
+    <div id="question9">
+      <h1 class="question">How long do you leave the kitchen faucet running each day?</h1>
+      <div class="image"><img src="kitchen.jpg" width="200px"></div>
+      <div id="buttons">
+        <button value="-1" onclick="backFunction(this)">Back</button>
+        <button id="kitchenSinkUnder5" value="5" onclick="kitchenSinkFunction(this)">UNDER 5
+          MIN</button>
+        <button  id="kitchenSinkUnder20" value="20" onclick="kitchenSinkFunction(this)">5-20
+          MIN</button>
+        <button  id="kitchenSinkUnder45" value="45" onclick="kitchenSinkFunction(this)">21-45
+          MIN</button>
+        <button  id="kitchenSinkUnder50" value="50" onclick="kitchenSinkFunction(this)">OVER 45
+          MIN</button>
+        <button onclick="nextFunction()">Next</button>
+      </div>
+    </div>
+
+    <div id="question10">
+      <h1 class="question">Does your kitchen sink have a low-flow faucet?</h1>
+      <div class="image"><img src="kitchen2.jpg" width="200px"></div>
+      <div id="buttons">
+        <button value="-1" onclick="backFunction(this)">Back</button>
+        <button  id="kitchenSinkYES" value="yes" onclick="kitchenSink2Function(this)">YES</button>
+        <button  id="kitchenSinkNO" value="no" onclick="kitchenSink2Function(this)">NO</button>
+        <button  id="kitchenSinkSOME" value="some" onclick="kitchenSink2Function(this)">SOME</button>
+        <button onclick="nextFunction()">Next</button>
+      </div>
+    </div>
+
+
+  <!-- </div>
+  </div>
+  </div> -->
+  <div id="question11">
+    <h1 class="question">How do you wash your dishes?</h1>
+    <div class="image"><img src="dishes (1).jpg" width="150px"></div>
+    <div id="buttons">
+      <button value="-1" onclick="backFunction(this)">Back</button>
+      <button onclick="nextFunction()">Next</button>
+    </div>
+    <h1 class="center">Old School Dishwasher</h1>
+    <div id="oldSchoolDiv">
+
+      <button id="oldSchoolMinus" value="-1" onclick="oldDishwasherFunction(this)">-</button>
+      <h1 id="oldSchoolNumber">0</h1>
+      <button id="oldSchoolPlus" value="1" onclick="oldDishwasherFunction(this)">+</button>
+      <h1>Load(s) Per</h1>
+      <button id="oldSchoolDaysMinus" value="-1" onclick="oldDishwasher2Function(this)">-</button>
+      <h1 id="oldSchoolNumber2">0</h1>
+      <button id="oldSchoolDaysPlus" value="1" onclick="oldDishwasher2Function(this)">+</button>
+      <h1>Day(s)</h1>
+
+
+    </div>
+
+
+    <h1 class="center">Water/Energy Efficient Dishwasher</h1>
+    <div id="newSchoolDiv">
+
+      <button id="newSchoolMinus" value="-1" onclick="newDishwasherFunction(this)">-</button>
+      <h1 id="newSchoolNumber">0</h1>
+      <button id="newSchoolPlus" value="1" onclick="newDishwasherFunction(this)">+</button>
+      <h1>Load(s) Per</h1>
+      <button id="newSchoolDaysMinus" value="-1" onclick="newDishwasher2Function(this)">-</button>
+      <h1 id="newSchoolNumber2">0</h1>
+      <button id="newSchoolDaysPlus" value="1" onclick="newDishwasher2Function(this)">+</button>
+      <h1>Day(s)</h1>
+    </div>
+
+    <h1 class="center">Washing By Hand</h1>
+    <div id="eatOutDiv">
+
+      <button id="eatOutMinus" value="-1" onclick="eatOutFunction(this)">-</button>
+      <h1 id="eatOutNumber">0</h1>
+      <button id="eatOutPlus" value="1" onclick="eatOutFunction(this)">+</button>
+      <h1>Load(s) Per</h1>
+      <button id="eatOutDaysMinus" value="-1" onclick="eatOut2Function(this)">-</button>
+      <h1 id="eatOutNumber2">0</h1>
+      <button id="eatOutDaysPlus" value="1" onclick="eatOut2Function(this)">+</button>
+      <h1>Day(s)</h1>
+
+    </div>
+
+    <h1 class="center">Eat Out and Throw Away</h1>
+    <div id="handDiv">
+
+      <button id="handMinus" value="-1" onclick="handFunction(this)">-</button>
+      <h1 id="handNumber">0</h1>
+      <button id="handPlus" value="1" onclick="handFunction(this)">+</button>
+      <h1>Load(s) Per</h1>
+      <button id="handDaysMinus" value="-1" onclick="hand2Function(this)">-</button>
+      <h1 id="handNumber2">0</h1>
+      <button id="handDaysPlus" value="1" onclick="hand2Function(this)">+</button>
+      <h1>Day(s)</h1>
+
+    </div>
+  </div>
+
+  <div id="question12">
+    <h1 class="question">How do you do laundry?</h1>
+    <div class="image"><img src="laundry.jpg" width="200px"></div>
+    <div id="buttons">
+      <button value="-1" onclick="backFunction(this)">Back</button>
+      <button onclick="nextFunction()">Next</button>
+    </div>
+    <h1 class="center">Old School Washing Machine</h1>
+    <div id="oldSchoolLaundryDiv">
+
+      <button id="oldSchoolLaundryMinus" value="-1" onclick="oldLaundryFunction(this)">-</button>
+      <h1 id="oldSchoolLaundryNumber">0</h1>
+      <button id="oldSchoolLaundryPlus" value="1" onclick="oldLaundryFunction(this)">+</button>
+      <h1>Load(s) Per</h1>
+      <button id="oldSchoolLaundryDaysMinus" value="-1" onclick="oldLaundry2Function(this)">-</button>
+      <h1 id="oldSchoolLaundryNumber2">0</h1>
+      <button id="oldSchoolLaundryDaysPlus" value="1" onclick="oldLaundry2Function(this)">+</button>
+      <h1>Day(s)</h1>
+
+
+    </div>
+
+
+    <h1 class="center">Water/Energy Efficient Washing Machine</h1>
+    <div id="newSchoolLaundryDiv">
+
+      <button id="newSchoolLaundryMinus" value="-1" onclick="newLaundryFunction(this)">-</button>
+      <h1 id="newSchoolLaundryNumber">0</h1>
+      <button id="newSchoolLaundryPlus" value="1" onclick="newLaundryFunction(this)">+</button>
+      <h1>Load(s) Per</h1>
+      <button id="newSchoolLaundryDaysMinus" value="-1" onclick="newLaundry2Function(this)">-</button>
+      <h1 id="newSchoolLaundryNumber2">0</h1>
+      <button id="newSchoolLaundryDaysPlus" value="1" onclick="newLaundry2Function(this)">+</button>
+      <h1>Day(s)</h1>
+    </div>
+
+    <h1 class="center">Washing By Hand</h1>
+    <div id="handLaundryDiv">
+
+      <button id="handLaundryMinus" value="-1" onclick="handLaundryFunction(this)">-</button>
+      <h1 id="handLaundryNumber">0</h1>
+      <button id="handLaundryPlus" value="1" onclick="handLaundryFunction(this)">+</button>
+      <h1>Load(s) Per</h1>
+      <button id="handLaundryDaysMinus" value="-1" onclick="handLaundry2Function(this)">-</button>
+      <h1 id="handLaundryNumber2">0</h1>
+      <button id="handLaundryDaysPlus" value="1" onclick="handLaundry2Function(this)">+</button>
+      <h1>Day(s)</h1>
+
+    </div>
+
+    <h1 class="center">Laundromat or Pay Someone Else</h1>
+    <div id="outsideLaundryDiv">
+
+      <button id="outsideLaundryMinus" value="-1" onclick="outsideLaundryFunction(this)">-</button>
+      <h1 id="outsideLaundryNumber">0</h1>
+      <button id="outsideLaundryPlus" value="1" onclick="outsideLaundryFunction(this)">+</button>
+      <h1>Load(s) Per</h1>
+      <button id="outsideLaundryDaysMinus" value="-1" onclick="outsideLaundry2Function(this)">-</button>
+      <h1 id="outsideLaundryNumber2">0</h1>
+      <button id="outsideLaundryDaysPlus" value="1" onclick="outsideLaundry2Function(this)">+</button>
+      <h1>Day(s)</h1>
+
+    </div>
+  </div>
+  </div>
+
+  <div id="result">
+    <h1 class="question">Results</h1>
+    <div class="results">
+      
+      <h1>Your household's indoor water usage is <span id="resHead"></span> gallons per day. That is <span id = "resHead2"></span>  gallons per person. That is a lot of water!</h1>
+      
+    </div>
+    <div class="image">
+      <img src="TeamDripLogoInner.jpg" width="200px">
+    </div>
+    <div id="buttons">
+      <button value="-1" onclick="backFunction(this)">Back</button>
+      <button onclick="nextFunction()">Restart</button>
+    </div>
+    <div id="tips">
+      <h1>Tips to Conserve More Water</h1>
+      <h3>*When washing dishes instead of having the water on non-stop grab a large plactic basket and put the soaped
+        dishes inside so when it is full you may rinse all the soapy dishes at once.</h3>
+      <h3>*When brushing your teeth only have the water in for when you need to rinse.</h3>
+      <h3>*Try to take less baths and shorter showers</h3>
+      <h3>*Don't flush random things down the toilet, dispose of your unfinished cereal somewhere else</h3>
+      <h3>*As fun as they are water fights are very wasteful so it's best to limit them as much as possible</h3>
+      <h4>Contact us at:</h4>
+      <h4>jordansantiago4124@gmail.com</h4>
+      <h4>treyporter331@gmail.com</h4>
+      <h4>yaswanswaby@gmail.com</h4>
+      <h4>haitham2004xx@gmail.com </h4>
+    </div>
+
+
+
+
+
+
+    <script src="main.js" defer></script>
 </body>
+
 </html>

@@ -4,7 +4,7 @@ let waterValues = {
     averageShowerLength : 0,
     lowFlowShowerHeads : "no",
     baths : 0,
-    bathFrequency : 0,
+    bathFrequency : 1,
     bathroomFaucetRunTime : 0,
     lowFlowBathroomFaucet : "no",
     toiletFlushFrequency : 0,
@@ -13,22 +13,22 @@ let waterValues = {
     lowFlowKitchenFaucet : "no",
     // dishes
     oldSchoolDishwasherLoads : 0,
-    oldSchoolDishwasherFrequency : 0,
+    oldSchoolDishwasherFrequency : 1,
     efficientDishwasherLoads : 0,
-    efficientDishwasherFrequency : 0,
+    efficientDishwasherFrequency : 1,
     handWashingLoads : 0,
-    handWashingFrequency : 0, 
+    handWashingFrequency : 1, 
     trashThemLoads : 0,
-    trashThemFrequency : 0,
+    trashThemFrequency : 1,
     // laundry
-    oldSchoolWashingMachineFrequency : 0,
+    oldSchoolWashingMachineFrequency : 1,
     oldSchoolWashingMachineLoads : 0,
-    efficientWashingMachineFrequency : 0,
+    efficientWashingMachineFrequency : 1,
     efficientWashingMachineLoads : 0,
     washingYourselfLoads : 0,
-    washingYourselfFrequency : 0,
+    washingYourselfFrequency : 1,
     outsideLaundryLoads : 0,
-    outsideLaundryFrequency : 0,
+    outsideLaundryFrequency : 1,
     
 }
 
@@ -45,11 +45,11 @@ function calculateWater(){
         showerUsagePerMin = 3.75;
     }
     let showerUsage = (waterValues.averageShowerLength * showerUsagePerMin);
-
+    console.log(showerUsage);
 
     //baths
     let bathUsage = (70*waterValues.baths)/waterValues.bathFrequency;
-
+    console.log(bathUsage);
     
     //bathroom faucet
     let bathroomFaucetUsagePerMin;
@@ -61,7 +61,7 @@ function calculateWater(){
         bathroomFaucetUsagePerMin = 2.25;
     }
     let bathroomFaucetUsage = (waterValues.bathroomFaucetRunTime * bathroomFaucetUsagePerMin);
-
+    console.log(bathroomFaucetUsage);
 
     //toilets
     let toiletUsagePerFlush;
@@ -73,7 +73,7 @@ function calculateWater(){
         toiletUsagePerFlush = 3.5;
     }
     let toiletUsage = (toiletUsagePerFlush * 5);
-
+    console.log(toiletUsage);
 
     //kitchen faucet
     let kitchenFaucetUsagePerMin;
@@ -85,59 +85,54 @@ function calculateWater(){
         kitchenFaucetUsagePerMin = 3.75;
     }
     let kitchenFaucetUsage = (waterValues.kitchenFaucetRunTime * kitchenFaucetUsagePerMin);
-
+    console.log(kitchenFaucetUsage);
 
     //old dishwasher
     let oldDishwasherUsage = (15 *waterValues.oldSchoolDishwasherLoads)/waterValues.oldSchoolDishwasherFrequency;
-
+    console.log(oldDishwasherUsage);
 
     //new dishwasher
     let newDishwasherUsage = (4 *waterValues.efficientDishwasherLoads)/waterValues.efficientDishwasherFrequency;
-
+    console.log(newDishwasherUsage);
 
     //hand dishwashing
     let handWashUsage = (20 *waterValues.handWashingLoads)/waterValues.handWashingFrequency;
-
+    console.log(handWashUsage);
 
     //eating out dishwashing
     let eatingOutUsage = (5.5 *waterValues.trashThemLoads)/waterValues.trashThemFrequency;
-
+    console.log(eatingOutUsage);
 
     //total dishwasher usage
     let totalDishwasherUsage = oldDishwasherUsage + newDishwasherUsage + handWashUsage + eatingOutUsage;
-
+    console.log(totalDishwasherUsage);
     //old laundry
     let oldLaundryUsage = (20 *waterValues.oldSchoolWashingMachineLoads)/waterValues.oldSchoolWashingMachineFrequency;
-
+    console.log(oldLaundryUsage)
 
     //new laundry
     let newLaundryUsage = (20 *waterValues.efficientWashingMachineLoads)/waterValues.efficientDishwasherFrequency;
-
+    console.log(newLaundryUsage);
 
     //hand laundry
     let handLaundryUsage = (20 *waterValues.washingYourselfLoads)/waterValues.washingYourselfFrequency;
-
+    console.log(handLaundryUsage);
 
     //outside laundry
     let outsideLaundryUsage = (20 *waterValues.outsideLaundryLoads)/waterValues.outsideLaundryFrequency;
-
+    console.log(outsideLaundryUsage);
 
     //total laundry usage
     let totalLaundryUsage = oldLaundryUsage + newLaundryUsage + handLaundryUsage + outsideLaundryUsage;
-
+    console.log(totalLaundryUsage);
     //total usage
     let totalWaterUsage = ((showerUsage + bathUsage + bathroomFaucetUsage + toiletUsage + kitchenFaucetUsage) * waterValues.residents) + totalDishwasherUsage + totalLaundryUsage;
-    console.log(waterValues);
-    return totalWaterUsage;
+    let totalWaterUsagePerPerson = totalWaterUsage/waterValues.residents;
+
+    return [totalWaterUsage,totalWaterUsagePerPerson];
     
 }
-if (window.location.pathname == "/result.html"){
-    let resultHead = document.querySelector("#resHead");
 
-    let functionCall = calculateWater();
-    resultHead.innerHTML = "495 gallons";
-    console.log(waterValues);
-}
 
 
 let household = 0;
@@ -150,11 +145,13 @@ function residentFunction(element){
 
 function showerFunction(element){
     waterValues.averageShowerLength = parseInt(element.value); 
+    nextFunction();
     console.log(waterValues.averageShowerLength); 
 }
 
 function showerFunction2(element){
     waterValues.lowFlowShowerHeads = (element.value);
+    nextFunction();
     console.log(waterValues.lowFlowShowerHeads);
 }
 
@@ -176,31 +173,37 @@ function bathtub2Function(element){
 
 function bathroomSinkFunction(element){
     waterValues.bathroomFaucetRunTime = parseInt(element.value);
+    nextFunction();
     console.log(waterValues.bathroomFaucetRunTime);
 }
 
 function bathroomSinkFunction2(element){
     waterValues.lowFlowBathroomFaucet = (element.value);
+    nextFunction();
     console.log(waterValues.lowFlowBathroomFaucet);
 }
 
 function toiletFunction(element){
-    waterValues.toiletFlushFrequency = parseInt(element.value);
+    waterValues.toiletFlushFrequency = (element.value);
+    nextFunction();
     console.log(waterValues.toiletFlushFrequency);
 }
 
 function toilet2Function(element){
     waterValues.lowFlowToilets = (element.value);
+    nextFunction();
     console.log(waterValues.lowFlowToilets);
 }
 
 function kitchenSinkFunction(element){
     waterValues.kitchenFaucetRunTime = parseInt(element.value);
+    nextFunction();
     console.log(waterValues.kitchenFaucetRunTime);
 }
 
 function kitchenSink2Function(element){
     waterValues.lowFlowKitchenFaucet = (element.value);
+    nextFunction();
     console.log(waterValues.lowFlowKitchenFaucet);
 }
 
@@ -333,4 +336,477 @@ function outsideLaundry2Function(element){
     let outsideLaundryHeader2 = document.getElementById("outsideLaundryNumber2");
     outsideLaundryHeader2.innerHTML = outsideLaundryLoads2;
     waterValues.washingYourselfFrequency += parseInt(element.value);
+}
+
+let pageNumber = 0;
+
+function nextFunction(){
+    if(pageNumber == 13){
+        pageNumber = 0
+    }else{
+        pageNumber += 1;
+    }
+    if(pageNumber == 0){
+        document.getElementById("start").style.display = "block";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+    }else if (pageNumber == 1){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "block";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 2){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "block";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 3){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "block";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 4){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "block";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 5){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "block";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        console.log("hello")
+        
+    }else if (pageNumber == 6){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "block";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 7){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "block";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 8){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "block";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 9){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "block";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 10){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "block";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 11){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "block";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 12){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "block";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 13){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        console.log(waterValues);
+        let totalUsage = calculateWater();
+        document.getElementById("resHead").innerHTML = Math.round(totalUsage[0]);
+        document.getElementById("resHead2").innerHTML = Math.round(totalUsage[1]);
+        
+    }
+
+    
+console.log(pageNumber);
+}
+function backFunction(){
+    pageNumber -=1;
+    if(pageNumber == 0){
+        document.getElementById("start").style.display = "block";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+    }else if (pageNumber == 1){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "block";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 2){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "block";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 3){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "block";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 4){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "block";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 5){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "block";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        console.log("hello")
+        
+    }else if (pageNumber == 6){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "block";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 7){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "block";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 8){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "block";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 9){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "block";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 10){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "block";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 11){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "block";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 12){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "block";
+        document.getElementById("result").style.display = "none";
+        
+    }else if (pageNumber == 13){
+        document.getElementById("start").style.display = "none";
+        document.getElementById("question1").style.display = "none";
+        document.getElementById("question2").style.display = "none";
+        document.getElementById("question3").style.display = "none";
+        document.getElementById("question4").style.display = "none";
+        document.getElementById("question5").style.display = "none";
+        document.getElementById("question6").style.display = "none";
+        document.getElementById("question7").style.display = "none";
+        document.getElementById("question8").style.display = "none";
+        document.getElementById("question9").style.display = "none";
+        document.getElementById("question10").style.display = "none";
+        document.getElementById("question11").style.display = "none";
+        document.getElementById("question12").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        
+    }
+
+    
+console.log(pageNumber);
 }

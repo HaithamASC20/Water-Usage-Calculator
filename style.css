@@ -16,7 +16,7 @@ body{
     justify-content: center;
     padding-top: 20px;
     padding-bottom: 10px;
-    color: blue;
+    color: black;
 }
 
 #startButton{
@@ -73,7 +73,7 @@ body{
 }
 
 #tips{
-color: blue;
+color: black;
 display: flex;
 justify-content: center;
 align-items: center;
@@ -84,5 +84,5 @@ padding: 20px;
 .results{
     display: flex;
     justify-content: center;
-    color: blue;
+    color: black;
 }
